@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  font-family: system-ui, sans-serif;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--rc-search-border, #ccc);
+  border-radius: var(--rc-search-radius, 6px);
+  padding: 6px 10px;
+  background: var(--rc-search-bg, #fff);
+}
+
+.search-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background: transparent;
+}
+
+.suffix:empty {
+  display: none;
+}

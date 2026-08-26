@@ -1,0 +1,12 @@
+node_modules/
+dist/
+www/
+loader/
+.svelte-kit/
+build/
+.vercel/
+.env
+.env.*
+*.log
+.claude/
+PLAN.md

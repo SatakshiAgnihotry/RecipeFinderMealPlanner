@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>recipe-ui dev</title>
+
+    <script type="module" src="/build/recipe-ui.esm.js"></script>
+    <script nomodule src="/build/recipe-ui.js"></script>
+  </head>
+  <body>
+    <div style="max-width: 300px; margin: 40px;">
+      <rc-recipe-card id="demo-card" is-favorite="false"></rc-recipe-card>
+      <div style="max-width: 300px; margin: 40px;">
+      <rc-search-bar id="demo-search" placeholder="Search recipes..." debounce="500"></rc-search-bar>
+    </div>
+    <script type="module">
+      document.getElementById('demo-search').addEventListener('searchchange', (e) => {
+      console.log('searchchange:', e.detail);
+      });
+    </script>
+   
+    </div>
+    <div style="margin: 40px; display: flex; gap: 8px;">
+      <rc-filter-chip id="chip-veg" label="Vegetarian" active="true"></rc-filter-chip>
+      <rc-filter-chip id="chip-dessert" label="Dessert" active="false"></rc-filter-chip>
+    </div>
+    <script type="module">
+      document.querySelectorAll('rc-filter-chip').forEach((chip) => {
+        chip.addEventListener('chiptoggle', (e) => {
+          console.log('chiptoggle:', e.detail);
+          chip.active = e.detail.active;
+       });
+      });
+    </script>
+    <button id="open-modal-btn" style="margin: 40px;">Open modal</button>
+  <rc-modal id="demo-modal" heading="Add to meal plan">
+    <p>This is the modal body content, projected via the default slot.</p>
+    <button slot="footer">Cancel</button>
+    <button slot="footer">Confirm</button>
+  </rc-modal>
+  <script type="module">
+    const modal = document.getElementById('demo-modal');
+    document.getElementById('open-modal-btn').addEventListener('click', () => {
+      modal.open = true;
+    });
+    modal.addEventListener('modalclose', () => {
+      console.log('modalclose fired');
+      modal.open = false;
+    });
+  </script>
+
+<div style="max-width: 400px; margin: 40px;">
+  <rc-empty-state heading="No recipes found" message="Try a different search term or browse by category.">
+    <button>Browse recipes</button>
+  </rc-empty-state>
+</div>
+  
+
+    <script type="module">
+      const card = document.getElementById('demo-card');
+      card.recipe = {
+        id: '53278',
+        title: 'Aubergine & hummus grills',
+        image: 'https://www.themealdb.com/images/media/meals/zub3s91764110535.jpg',
+        category: 'Vegetarian',
+      };
+    </script>
+  </body>
+</html>

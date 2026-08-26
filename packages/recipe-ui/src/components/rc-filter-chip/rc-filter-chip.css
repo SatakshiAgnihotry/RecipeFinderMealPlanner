@@ -1,0 +1,20 @@
+:host {
+  display: inline-block;
+  font-family: system-ui, sans-serif;
+}
+
+.chip {
+  border: 1px solid var(--rc-chip-border, #ccc);
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: var(--rc-chip-bg, #fff);
+  color: var(--rc-chip-color, #333);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.chip.active {
+  background: var(--rc-chip-active-bg, #1a73e8);
+  color: var(--rc-chip-active-color, #fff);
+  border-color: var(--rc-chip-active-bg, #1a73e8);
+}

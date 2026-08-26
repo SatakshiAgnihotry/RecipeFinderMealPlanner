@@ -1,0 +1,29 @@
+:host {
+  display: block;
+  font-family: system-ui, sans-serif;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--rc-empty-color, #555);
+}
+
+.empty-state h3 {
+  margin: 0 0 8px;
+  color: var(--rc-empty-heading-color, #222);
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.action {
+  margin-top: 16px;
+}
+
+.action:empty {
+  display: none;
+  margin-top: 0;
+}
