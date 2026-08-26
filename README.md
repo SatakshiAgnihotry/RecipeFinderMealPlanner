@@ -28,7 +28,7 @@ A recipe discovery and weekly meal-planning app has two projects working togethe
 Requires **Node 22.13+** (the Stencil library and ESLint 10 both need it).
 
 ```bash
-git clone <this-repo>
+git clone satakshiAgnihotry/RecipeFinderMealPlanner
 cd recipe-planner
 ```
 
