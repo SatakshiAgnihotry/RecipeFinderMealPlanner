@@ -72,6 +72,10 @@ export function searchRecipes(query: string): Promise<RecipeSummary[]> {
 	return fetchSummaryList(`${BASE_URL}/search.php?s=${encodeURIComponent(query)}`);
 }
 
+export function getAllRecipes(): Promise<RecipeSummary[]> {
+	return fetchSummaryList(`${BASE_URL}/search.php?s=`);
+}
+
 export async function filterByCategory(category: string): Promise<RecipeSummary[]> {
 	const summaries = await fetchSummaryList(
 		`${BASE_URL}/filter.php?c=${encodeURIComponent(category)}`

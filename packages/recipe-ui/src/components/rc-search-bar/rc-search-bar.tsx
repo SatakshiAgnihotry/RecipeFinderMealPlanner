@@ -15,9 +15,13 @@ export class RcSearchBar {
   @State() private internalValue: string = this.value;
 
   private debounceTimer!: ReturnType<typeof setTimeout>;
+  private inputEl?: HTMLInputElement;
 
   @Watch('value')
   watchValue(newValue: string) {
+    if (newValue === this.internalValue) return;
+    const root = this.inputEl?.getRootNode() as Document | ShadowRoot | undefined;
+    if (this.inputEl && root?.activeElement === this.inputEl) return;
     this.internalValue = newValue;
   }
 
@@ -39,6 +43,7 @@ export class RcSearchBar {
     return (
       <div class="search-bar">
         <input
+          ref={(el) => (this.inputEl = el)}
           type="text"
           value={this.internalValue}
           placeholder={this.placeholder}

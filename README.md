@@ -171,6 +171,10 @@ recipe-planner/
   since it's a shared public service. A navigation progress indicator
   (`+layout.svelte`, driven by `$app/state`'s `navigating`) makes slow
   requests visible instead of looking like a broken click.
+- **Discover opens on a browsable recipe list** — an "All" chip (a small
+  starter set from TheMealDB) is selected by default, so the page shows
+  recipes immediately instead of an empty prompt. Results are paginated
+  client-side with a "Load more" button.
 - **Search and category-filter are mutually exclusive** on the Discover
   page — picking one clears the other.
 - **User-created recipe ids are prefixed `user-`**, distinguishing them

@@ -1,5 +1,5 @@
 import type { PageLoad } from './$types';
-import { getCategories, searchRecipes, filterByCategory } from '$lib/api/mealdb';
+import { getCategories, searchRecipes, filterByCategory, getAllRecipes } from '$lib/api/mealdb';
 import type { RecipeSummary } from '$lib/types';
 
 export const load: PageLoad = async ({ url }) => {
@@ -13,12 +13,14 @@ export const load: PageLoad = async ({ url }) => {
 	try {
 		if (query) {
 			results = await searchRecipes(query);
-		} else if (category) {
+		} else if (category && category !== 'All') {
 			results = await filterByCategory(category);
+		} else {
+			results = await getAllRecipes();
 		}
 	} catch {
 		status = 'error';
 	}
 
-	return { categories, query, category, results, status };
+	return { categories: ['All', ...categories], query, category, results, status };
 };

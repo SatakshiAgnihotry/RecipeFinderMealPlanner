@@ -7,7 +7,7 @@
 
 	function handleSubmit(input: RecipeInput) {
 		myRecipes.add(input);
-		goto(resolve('/my-recipes'));
+		goto(resolve('/my-recipes'), { replaceState: true });
 	}
 </script>
 

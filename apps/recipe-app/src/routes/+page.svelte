@@ -8,9 +8,18 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { SvelteURLSearchParams } from 'svelte/reactivity';
+	import { untrack } from 'svelte';
+
+	const PAGE_SIZE = 12;
 
 	let { data } = $props();
 	let planningRecipe = $state<{ id: string; title: string; image: string } | null>(null);
+
+	let searchValue = $state(untrack(() => data.query));
+	let shown = $state(PAGE_SIZE);
+
+	const activeCategory = $derived(data.query ? '' : data.category || 'All');
+	const visibleResults = $derived(data.results.slice(0, shown));
 
 	function updateUrl(params: { q?: string; category?: string }) {
 		const search = new SvelteURLSearchParams();
@@ -25,11 +34,16 @@
 	}
 
 	function handleSearchChange(value: string) {
+		searchValue = value;
+		shown = PAGE_SIZE;
 		updateUrl({ q: value.trim() || undefined });
 	}
 
 	function handleChipToggle(detail: { label: string; active: boolean }) {
-		updateUrl({ category: detail.active ? detail.label : undefined });
+		searchValue = '';
+		shown = PAGE_SIZE;
+		const category = detail.active && detail.label !== 'All' ? detail.label : undefined;
+		updateUrl({ category });
 	}
 
 	function handleSelect(id: string) {
@@ -39,11 +53,11 @@
 
 <section class="hero">
 	<h1>Find your next recipe</h1>
-	<p class="subtitle">Search TheMealDB or browse by category to get started.</p>
+	<p class="subtitle">Browse recipes below, search by name, or filter by category.</p>
 
 	<div class="toolbar">
 		<RcSearchBar
-			value={data.query}
+			value={searchValue}
 			placeholder="Search recipes..."
 			onsearchchange={handleSearchChange}
 		/>
@@ -52,7 +66,7 @@
 			{#each data.categories as category (category)}
 				<RcFilterChip
 					label={category}
-					active={data.category === category}
+					active={activeCategory === category}
 					onchiptoggle={handleChipToggle}
 				/>
 			{/each}
@@ -65,16 +79,11 @@
 		heading="Something went wrong"
 		message="Could not reach TheMealDB. Please try again."
 	/>
-{:else if !data.query && !data.category}
-	<RcEmptyState
-		heading="Start exploring"
-		message="Search by name or pick a category to see recipes."
-	/>
 {:else if data.results.length === 0}
 	<RcEmptyState heading="No recipes found" message="Try a different search term or category." />
 {:else}
 	<div class="grid">
-		{#each data.results as recipe (recipe.id)}
+		{#each visibleResults as recipe (recipe.id)}
 			<div class="card-wrap">
 				<RcRecipeCard
 					{recipe}
@@ -88,6 +97,12 @@
 			</div>
 		{/each}
 	</div>
+
+	{#if data.results.length > shown}
+		<div class="load-more">
+			<button class="btn-secondary" onclick={() => (shown += PAGE_SIZE)}>Load more</button>
+		</div>
+	{/if}
 {/if}
 
 <AddToPlanModal recipe={planningRecipe} onclose={() => (planningRecipe = null)} />
@@ -142,5 +157,11 @@
 
 	.card-wrap button {
 		margin-top: auto;
+	}
+
+	.load-more {
+		display: flex;
+		justify-content: center;
+		margin-top: 24px;
 	}
 </style>

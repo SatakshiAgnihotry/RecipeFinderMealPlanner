@@ -12,7 +12,7 @@
 	function handleSubmit(input: RecipeInput) {
 		if (!recipe) return;
 		myRecipes.update(recipe.id, input);
-		goto(resolve('/recipes/[id]', { id: recipe.id }));
+		goto(resolve('/recipes/[id]', { id: recipe.id }), { replaceState: true });
 	}
 </script>
 
