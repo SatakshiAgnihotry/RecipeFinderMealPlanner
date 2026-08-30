@@ -28,7 +28,7 @@ working together:
 - **npm package**: https://www.npmjs.com/package/@satakshiagnihotri/recipe-ui
 - **GitHub repository**: https://github.com/SatakshiAgnihotry/RecipeFinderMealPlanner/
 - **Deployed app**: https://recipe-finder-meal-planner-teal.vercel.app/
-- **Video Recording Link**:
+- **Video Recording Link**: https://drive.google.com/file/d/11EH0LwVzXJwWe5hwOmOFFhHcut33YQUC/view?usp=drive_link
 
 ## Quick Start
 
